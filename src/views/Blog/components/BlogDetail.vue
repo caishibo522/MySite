@@ -1,0 +1,47 @@
+<template>
+  <div class="blog-detail-container">
+    <h1>{{blog.title}}</h1>
+    <div class="aside">
+      <span>日期:{{formatDate(blog.createDate)}}</span>
+      <span>浏览:{{blog.scanNumber}}</span>
+      <a href="#data-form-container">评论:{{blog.commentNumber}}</a>
+      <RouterLink :to="{
+        name:'categoryBlog',
+        params: {
+          categoryId: blog.category.id
+        }
+      }">{{blog.category.name}}</RouterLink>
+    </div>
+    <div v-html="blog.htmlContent" class="markdown-body">
+    </div>
+  </div>
+</template>
+
+<script>
+  import formatDate from "@/utils/formatDate";
+  export default {
+   props: {
+     blog:{
+       required: true,
+       type:Object,
+     }
+   },
+    methods: {
+     formatDate
+    }
+  }
+</script>
+
+<style scoped lang="less">
+  @import "~@/styles/var.less";
+  .aside {
+    color: @gray;
+    font-size: 12px;
+    span,a {
+      margin-right: 15px;
+    }
+  }
+  .markdown-body {
+    margin: 2em 0;
+  }
+</style>
